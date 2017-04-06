@@ -8,12 +8,9 @@ def main (minions){
     else {
     //String deploycommand = ' bb-sites.reload ' + params.module + ' ' + params.reloadurl;
     //String commandToRun = '\"sudo salt -L  \"' + minions + '\"' + deploycommand + '\" ';
-    //commandToRun = '\"sudo salt -L  \"' + minions + '\" cmd.run uptime\" '
-    //print commandToRun;
+    String commandToRun = '\"sudo salt -L  \"' + minions + '\" cmd.run uptime\" '
+    sh " ssh -o StrictHostKeyChecking=no  infra@10.3.0.1  /bin/bash -c '${commandToRun}' ";
     }
-     
-     
-     
 }    
 
 
@@ -24,7 +21,7 @@ node {
         print "DEBUG: parameter Reloadurl = " +  params.reloadurl ;
         //print  env.JOB_NAME + env.BUILD_ID;
         if ((params.minion.length() == 0) || (params.module.length() == 0) || ( params.reloadurl.length() == 0 )) {
-            print "ERROR: Null Paramaters"; 
+            print "ERROR: Missing Paramaters"; 
             sh 'exit 1';
         }
     }
@@ -52,7 +49,7 @@ parallel firstBranch: {
 }, secondBranch: {
     if (instanceOld) {
         stage(instanceOld + ' Reload' ) { // for display purposes
-            //main(instanceOld);
+            main(instanceOld);
         }
     }
 }
@@ -63,4 +60,5 @@ node {
         sh 'echo "ALL TESTS PASS" exit 0'
     }
 }
+
 
