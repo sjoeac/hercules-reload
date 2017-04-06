@@ -1,14 +1,14 @@
 def main (minions){
     if (minions =~/B0*/) {
-    //String deploycommand = ' bb-sites.reload ' + params.module + ' ' + params.reloadurl;
-    //String commandToRun = '\"sudo salt -C  \"' + minions + '\"' + deploycommand + '\" ';
-    String commandToRun = '\"sudo salt -C  \"' + minions  + '*\" cmd.run uptime\" ';
+    String deploycommand = ' bb-sites.reload ' + params.module + ' ' + params.reloadurl;
+    String commandToRun = '\"sudo salt -C  \"' + minions + '\"' + deploycommand + '\" ';
+    //String commandToRun = '\"sudo salt -C  \"' + minions  + '*\" cmd.run uptime\" ';
     sh " ssh -o StrictHostKeyChecking=no  infra@10.1.246.251  /bin/bash -c '${commandToRun}' ";
     }
     else {
-    //String deploycommand = ' bb-sites.reload ' + params.module + ' ' + params.reloadurl;
-    //String commandToRun = '\"sudo salt -L  \"' + minions + '\"' + deploycommand + '\" ';
-    String commandToRun = '\"sudo salt -L  \"' + minions + '\" cmd.run uptime\" '
+    String deploycommand = ' bb-sites.reload ' + params.module + ' ' + params.reloadurl;
+    String commandToRun = '\"sudo salt -L  \"' + minions + '\"' + deploycommand + '\" ';
+    //String commandToRun = '\"sudo salt -L  \"' + minions + '\" cmd.run uptime\" '
     sh " ssh -o StrictHostKeyChecking=no  infra@10.3.0.1  /bin/bash -c '${commandToRun}' ";
     }
 }    
